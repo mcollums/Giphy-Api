@@ -1,7 +1,26 @@
-.row {
-    margin-top: 20px;
+.jumbotron-custom {
+    margin-bottom: 0px;
+    padding: 2rem 1rem;
+    display: flex;
+    align-items: center;
+    background-color: #e9ecef;
+}
+
+.button-row {
+    padding: 1rem 1.5rem;
+    background-color: blue;
+    
+}
+
+.gif-row {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
 }
 
 .giphy-btn {
-    text-transform:capitalize;
+    margin: 5px 10px;
+}
+
+.giphy-element {
+    margin: 5px 10px;
 }

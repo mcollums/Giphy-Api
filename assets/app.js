@@ -60,7 +60,7 @@ $(document).ready(function () {
 
     function searchGiphy(keyword) {
         var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
-        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=" + api + "&limit=10";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=" + api + "&limit=10&rating=g";
 
         // Creates AJAX call for the specific button being clicked
         $.ajax({
@@ -97,7 +97,7 @@ $(document).ready(function () {
         $(".giphy-element").remove();
         searchGiphy($(this).attr("data-name"));
         var dataName = ($(this).attr("data-name"));
-        $("#top-ten-span").text(dataName.charAt(0).toUpperCase() + dataName.substr(1).toLowerCase());
+        $("#top-ten-span").text("Top Ten " + dataName.charAt(0).toUpperCase() + dataName.substr(1).toLowerCase() + " Gifs!");
 
         
 

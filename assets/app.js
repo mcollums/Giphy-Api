@@ -97,7 +97,9 @@ $(document).ready(function () {
         $(".giphy-element").remove();
         searchGiphy($(this).attr("data-name"));
         var dataName = ($(this).attr("data-name"));
-        console.log("This is the name of the data " + dataName);
+        $("#top-ten-span").text(dataName.charAt(0).toUpperCase() + dataName.substr(1).toLowerCase());
+
+        
 
     });
 

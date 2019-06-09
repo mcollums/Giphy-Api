@@ -18,7 +18,7 @@
 
 $(document).ready(function () {
     var myArray = ["cat", "dog", "horse"];
-
+    
     // Function for displaying movie data
     function renderButtons() {
 
@@ -26,17 +26,15 @@ $(document).ready(function () {
         // (this is necessary otherwise you will have repeat buttons)
         $("#buttons-all").empty();
 
-        // Loops through the array of movies
+        // Loops through the array 
         for (var i = 0; i < myArray.length; i++) {
-
-            // Then dynamicaly generates buttons for each movie in the array
-            // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+            // variable of an empty button
             var a = $("<button>");
-            // Adds a class of movie to our button
-            a.addClass("btn btn-info");
+            // Adds a class of btn btn-info to our button for bootstrap
+            a.addClass("btn btn-info giphy-btn");
             // Added a data-attribute
             a.attr("data-name", myArray[i]);
-            // Added a type-attribute
+            // Added a type-attribute for bootstrap
             a.attr("type", "button");
             // Provided the initial button text
             a.text(myArray[i]);
@@ -45,9 +43,63 @@ $(document).ready(function () {
         }
     }
 
+    function displayGifs (response) {
+        //forEach 
+        response.data.forEach(function(gif, index){
+            var gifURL = gif.images.fixed_height.url;
+            
+            //makes new div for each image
+            // var newDiv = $("<div>");
+            var image = $("<img>");
+            image.attr("src", gifURL);
+            image.addClass("giphy-element");
+            // newDiv.append(image);
+            $("#gif-block").append(image);
+        }) 
+    }
+
+    function searchGiphy(keyword) {
+        var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=" + api + "&limit=10";
+
+        // Creates AJAX call for the specific button being clicked
+        $.ajax({
+          url: queryURL,
+          method: "GET"
+        }).then(function(response) {
+            console.log(response);
+            displayGifs(response);
+        });
+    }
+
+    // This function handles events where the add movie button is clicked
+    $("#add-movie").on("click", function (event) {
+        event.preventDefault();
+
+        // This line of code will grab the input from the textbox
+        var keyword = $("#movie-input").val().trim();
+
+        if (keyword.length > 0) {
+            // The movie from the textbox is then added to our array
+            myArray.push(keyword);
+
+            //Clears the input field after submitting
+            var keyword = $("#movie-input").val("");
+
+            // Calling renderButtons which handles the processing of our movie array
+            renderButtons();
+        }
+    });
+    
+
+    //On click event that will grab the value of the button
+    $(document).on("click", ".giphy-btn", function(event){
+        $(".giphy-element").remove();
+        searchGiphy($(this).attr("data-name"));
+        var dataName = ($(this).attr("data-name"));
+        console.log("This is the name of the data " + dataName);
+
+    });
+
     renderButtons();
-
-
-
-
 });

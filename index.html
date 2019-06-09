@@ -31,14 +31,28 @@
     </div>
 
     <div class="container">
+
+        <!-- Row for all the Buttons -->
         <div class="row">
-            <!-- <div class="col-md-1 padding-col"></div> -->
             <div class="col-md-12" id="buttons-all"></div>
-            <!-- <div class="col-md-1 padding-col"></div> -->
         </div>
+
+        <!-- Row for the Input Field and the Gifs -->
         <div class="row">
-            <div class="col-md-3">This is where my searchbox goes</div>
-            <div class="col-md-9">This is where my gifs go</div>
+            <div class="col-lg-3">
+                <form id="movie-form">
+                    <label for="movie-input">Add a Movie, Yo!</label>
+                    <input type="text" id="movie-input"><br>
+
+                    <!-- Button triggers new movie to be added -->
+                    <input id="add-movie" type="submit" value="Add a Movie, Yo!">
+                </form>
+            </div>
+            <div class="col-lg-9"
+                <div class="row">
+                    <h2>Top Ten <span id="top-ten-span"></span>Gifs!</h2>
+                </div>
+                <div class="row" id="gif-block"></div>
         </div>
     </div>
 

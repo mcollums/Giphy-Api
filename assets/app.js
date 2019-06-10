@@ -112,13 +112,31 @@ $(document).ready(function () {
     var isPlaying = false;
 
     $(document).on("click", "img", function (event) {
-        console.log($(this).attr("data-state"));
-        if ($(this).attr("data-state", "still")) {
-            $(this).attr("src", $(this).attr("gif-url"));
-            $(this).attr("data-state", "playing");
-        } else if ($(this).attr("data-state", "playing")) {
-            $(this).attr("data-state", "still"); 
+        console.log("This is outside the if statement " + $(this).attr("data-state"));
+        // if ($(this).attr("data-state", "still")) {
+        //     console.log("This is inside the if statement " + $(this).attr("data-state"));
+
+        //     $(this).attr("src", $(this).attr("gif-url"));
+        //     $(this).attr("data-state", "playing");
+        // } else if ($(this).attr("data-state", "playing")) {
+        //     console.log("This is inside the else if statement " + $(this).attr("data-state"));
+
+        //     $(this).attr("data-state", "still"); 
+        //     $(this).attr("src", $(this).attr("img-url"));
+        // }
+
+        if ($(this).data('state') === 'play') {
+            console.log("This is inside the if statement " + $(this).attr("data-state"));
+
             $(this).attr("src", $(this).attr("img-url"));
+            $(this).data('state') === 'still';
+        }  
+        
+        else if ($(this).data('state') === 'still') {
+            console.log("This is inside the else if statement " + $(this).attr("data-state"));
+
+            ($(this).data('state') === 'play')
+            $(this).attr("src", $(this).attr("gif-url"));
         }
 
         // if (isPlaying === false) {

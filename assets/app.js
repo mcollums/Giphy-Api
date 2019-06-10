@@ -60,8 +60,8 @@ $(document).ready(function () {
             var image = $("<img>");
             image.attr("src", stillURL);
             image.attr("data-state", "still");
-            image.attr("img-url", stillURL);
-            image.attr("gif-url", gifURL);
+            image.attr("data-still", stillURL);
+            image.attr("data-play", gifURL);
             image.addClass("giphy-element");
             // Append(image) to gif block
             $("#gif-block").append(image);
@@ -148,42 +148,18 @@ $(document).ready(function () {
 
     })
 
+    //When you click a gif, it will switch the image source
     $(document).on("click", "img", function (event) {
-        // var isPlaying = false;
-        console.log("This is outside the if statement " + $(this).attr("data-state"));
-        // if ($(this).attr("data-state", "still")) {
-        //     console.log("This is inside the if statement " + $(this).attr("data-state"));
-
-        //     $(this).attr("src", $(this).attr("gif-url"));
-        //     $(this).attr("data-state", "playing");
-        // } else if ($(this).attr("data-state", "playing")) {
-        //     console.log("This is inside the else if statement " + $(this).attr("data-state"));
-
-        //     $(this).attr("data-state", "still"); 
-        //     $(this).attr("src", $(this).attr("img-url"));
-        // }
-
-        if ($(this).data('state') === 'play') {
-            console.log("This is inside the if statement " + $(this).attr("data-state"));
-
-            $(this).attr("src", $(this).attr("img-url"));
-            $(this).data('state') === 'still';
-        }
-
-        else if ($(this).data('state') === 'still') {
-            console.log("This is inside the else if statement " + $(this).attr("data-state"));
-
-            ($(this).data('state') === 'play')
-            $(this).attr("src", $(this).attr("gif-url"));
-        }
-
-        // if (isPlaying === false) {
-        //     $(this).attr("src", $(this).attr("gif-url"));
-        //     isPlaying = true;
-        // } else if (isPlaying === true) {
-        //     $(this).attr("src", $(this).attr("img-url"));
-        //     isPlaying = false;
-        // }
+        var state = ($(this).attr("data-state"));
+        if (state === "still") {
+            $(this).attr("src", $(this).attr("data-play"));
+            $(this).attr("data-state","play");
+            console.log("This is inside the if statement " + state);
+          } else if (state === "play") {
+            $(this).attr("src", $(this).attr("data-still"));
+            $(this).attr("data-state","play");        
+            console.log("This is inside the else if statement " + state);
+          }
     })
     renderButtons();
 });

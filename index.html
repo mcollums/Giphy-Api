@@ -25,39 +25,44 @@
     <!-- Jumbotron Header -->
     <div class="jumbotron jumbotron-fluid jumbotron-custom">
         <div class="container">
-            <h1 class="display-4">Gif-Crazy!</h1>
+            <h1 class="display-4">Show Me Those Gifs!</h1>
             <p class="lead">Search for top gifs! Press any button to search and add your own.</p>
         </div>
     </div>
 
     <!-- <div class="container container-fluid"> -->
-        <!-- Row for all the Buttons -->
-        <div class="row button-row container-custom">
-            <div class="col-lg-12" id="buttons-all"></div>
+    <!-- Row for all the Buttons -->
+    <div class="row button-row container-custom">
+        <div class="col-lg-12" id="buttons-all"></div>
+    </div>
+
+    <!-- Row for the Input Field and the Gifs -->
+    <div class="row gif-row">
+        <div class="col-lg-3">
+            <form id="movie-form">
+                <label for="movie-input">Add a TV Show, Yo!</label>
+                <br>
+                <input type="text" id="movie-input"><br>
+                <br>
+                <!-- Button triggers new movie to be added -->
+                <input class="btn btn-primary" id="add-movie" type="submit" value="Add Button">
+            </form>
         </div>
 
-        <!-- Row for the Input Field and the Gifs -->
-        <div class="row gif-row">
-            <div class="col-lg-3">
-                <form id="movie-form">
-                    <label for="movie-input">Add a TV Show, Yo!</label>
-                    <br>
-                    <input type="text" id="movie-input"><br>
-                    <br>
-                    <!-- Button triggers new movie to be added -->
-                    <input id="add-movie" type="submit" value="Add Button">
-                </form>
-            </div>
-            
-            <div class="col-lg-9"
-                <div class="row">
+        <div class="col-lg-9">
+            <div class="row gif-title-row">
+                <div class="col-lg-9">
                     <h2><span id="top-ten-span"></span></h2>
-                    <div class="row" id="gif-block"></div>
                 </div>
+                <div class="col-lg-3">
+                    <button class="btn btn-primary" id="more-button">Add Ten More!</button>
+                </div>
+                <div class="row" id="gif-block"></div>
+            </div>
         </div>
-    <!-- </div> -->
+        <!-- </div> -->
 
-    <script src="assets/app.js"></script>
+        <script src="assets/app.js"></script>
 </body>
 
 </html>

@@ -17,8 +17,13 @@
 //Where will this be displayed?
 
 $(document).ready(function () {
-    var myArray = ["cat", "dog", "horse"];
-    
+    $("#more-button").hide();
+
+    var myTVShows = ["Community", "Broad City", "Big Little Lies", "Game of Thrones"];
+    var gifURL = "";
+    var stillURL = "";
+
+
     // Function for displaying movie data
     function renderButtons() {
 
@@ -27,35 +32,38 @@ $(document).ready(function () {
         $("#buttons-all").empty();
 
         // Loops through the array 
-        for (var i = 0; i < myArray.length; i++) {
+        for (var i = 0; i < myTVShows.length; i++) {
             // variable of an empty button
             var a = $("<button>");
             // Adds a class of btn btn-info to our button for bootstrap
-            a.addClass("btn btn-info giphy-btn");
+            a.addClass("btn btn-primary giphy-btn");
             // Added a data-attribute
-            a.attr("data-name", myArray[i]);
+            a.attr("data-name", myTVShows[i]);
             // Added a type-attribute for bootstrap
             a.attr("type", "button");
             // Provided the initial button text
-            a.text(myArray[i]);
+            a.text(myTVShows[i]);
             // Added the button to the buttons-view div
             $("#buttons-all").append(a);
         }
     }
 
-    function displayGifs (response) {
+    function displayGifs(response) {
         //forEach 
-        response.data.forEach(function(gif, index){
-            var gifURL = gif.images.fixed_height.url;
-            
-            //makes new div for each image
-            // var newDiv = $("<div>");
+        response.data.forEach(function (gif, index) {
+            stillURL = gif.images.fixed_height_still.url;
+            gifURL = gif.images.fixed_height.url;
+
+            //makes new image tag for each gif
             var image = $("<img>");
-            image.attr("src", gifURL);
+            image.attr("src", stillURL);
+            image.attr("data-state", "still");
+            image.attr("img-url", stillURL);
+            image.attr("gif-url", gifURL);
             image.addClass("giphy-element");
-            // newDiv.append(image);
+            // Append(image) to gif block
             $("#gif-block").append(image);
-        }) 
+        })
     }
 
     function searchGiphy(keyword) {
@@ -64,9 +72,9 @@ $(document).ready(function () {
 
         // Creates AJAX call for the specific button being clicked
         $.ajax({
-          url: queryURL,
-          method: "GET"
-        }).then(function(response) {
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
             console.log(response);
             displayGifs(response);
         });
@@ -81,7 +89,7 @@ $(document).ready(function () {
 
         if (keyword.length > 0) {
             // The movie from the textbox is then added to our array
-            myArray.push(keyword);
+            myTVShows.push(keyword);
 
             //Clears the input field after submitting
             var keyword = $("#movie-input").val("");
@@ -90,18 +98,36 @@ $(document).ready(function () {
             renderButtons();
         }
     });
-    
 
-    //On click event that will grab the value of the button
-    $(document).on("click", ".giphy-btn", function(event){
+
+    //On click event that will grab the value of the button and populate the page
+    $(document).on("click", ".giphy-btn", function (event) {
         $(".giphy-element").remove();
         searchGiphy($(this).attr("data-name"));
         var dataName = ($(this).attr("data-name"));
         $("#top-ten-span").text("Top Ten " + dataName.charAt(0).toUpperCase() + dataName.substr(1).toLowerCase() + " Gifs!");
-
-        
-
+        $("#more-button").show();
     });
 
-    renderButtons();
-});
+    var isPlaying = false;
+
+    $(document).on("click", "img", function (event) {
+        console.log($(this).attr("data-state"));
+        if ($(this).attr("data-state", "still")) {
+            $(this).attr("src", $(this).attr("gif-url"));
+            $(this).attr("data-state", "playing");
+        } else if ($(this).attr("data-state", "playing")) {
+            $(this).attr("data-state", "still"); 
+            $(this).attr("src", $(this).attr("img-url"));
+        }
+
+        // if (isPlaying === false) {
+        //     $(this).attr("src", $(this).attr("gif-url"));
+        //     isPlaying = true;
+        // } else if (isPlaying === true) {
+        //     $(this).attr("src", $(this).attr("img-url"));
+        //     isPlaying = false;
+        // }
+    })
+        renderButtons();
+    });

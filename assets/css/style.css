@@ -1,15 +1,55 @@
 .jumbotron-custom {
     margin-bottom: 0px;
-    padding: 2rem 1rem;
+    margin-right: 0px;
+    padding: 1rem 1rem 0rem 1rem;
     display: flex;
     align-items: center;
-    background-color: #e9ecef;
+    background-color: #15a2b8;
+    color:white;
 }
 
+/* Centering Jumbotron Text */
+.display-4, .lead{
+    text-align: center;
+}
+
+/* Start BUTTON ROW*/
 .button-row {
     padding: 1rem 1.5rem;
-    background-color: blue;
-    
+    background-color: #15a2b8;
+    margin-right: 0px;
+}
+
+.btn-primary {
+    margin: 5px 10px;
+    background-color: #15a2b8 !important;
+    border-style: solid;
+    border-radius: 12px;
+    border-color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #118b9e !important;
+    border-color: #117180;
+}
+
+.btn-primary:active {
+    border-color:#a7e2eb;
+    border-radius: 12px;
+}
+
+.btn:focus {
+    /* border: none !important; */
+    box-shadow: none !important;
+    background-color: #117585 !important;
+    border-color:white;
+    /* outline: 0 none !important; */
+}
+/* End BUTTON ROW */
+
+/* Start GIF SECTION */
+.gif-title-row {
+    padding-right: 2.5rem;
 }
 
 .gif-row {
@@ -17,10 +57,11 @@
     margin-left: 1.5rem;
 }
 
-.giphy-btn {
-    margin: 5px 10px;
+#more-button{
+    float: right;
 }
 
 .giphy-element {
     margin: 5px 10px;
 }
+/* End GIF SECTION */

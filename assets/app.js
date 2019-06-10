@@ -22,6 +22,8 @@ $(document).ready(function () {
     var myTVShows = ["Community", "Broad City", "Big Little Lies", "Game of Thrones"];
     var gifURL = "";
     var stillURL = "";
+    var giphyKeyword = "";
+    var count = 10;
 
 
     // Function for displaying movie data
@@ -67,7 +69,9 @@ $(document).ready(function () {
     }
 
     function searchGiphy(keyword) {
+        //Michelle's API key
         var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
+        //API URL that's being called
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=" + api + "&limit=10&rating=g";
 
         // Creates AJAX call for the specific button being clicked
@@ -102,16 +106,50 @@ $(document).ready(function () {
 
     //On click event that will grab the value of the button and populate the page
     $(document).on("click", ".giphy-btn", function (event) {
+        //Removes the previous search results
         $(".giphy-element").remove();
+
+        //Searches Giphy for the data name in the button
         searchGiphy($(this).attr("data-name"));
+
+        giphyKeyword = ($(this).attr("data-name"));
+
+        //Stores that name to convert to upper case
         var dataName = ($(this).attr("data-name"));
         $("#top-ten-span").text("Top Ten " + dataName.charAt(0).toUpperCase() + dataName.substr(1).toLowerCase() + " Gifs!");
+
+        //Adds the More Button to the page
         $("#more-button").show();
     });
 
-    var isPlaying = false;
+    $(document).on("click", "#more-button", function (event) {
+        //Removes the previous search results
+        $(".giphy-element").remove();
+
+        //Michelle's API key
+        var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
+        //API URL that's being called
+        var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphyKeyword + "&api_key=" + api + "&limit=" + newCount + "&rating=g";
+
+        //Adds 10 more to the count
+        var newCount = count + 10;
+        console.log(newCount);
+        //Logs new number into the count
+        count = newCount;
+
+        // Creates AJAX call for the specific button being clicked
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            console.log(response);
+            displayGifs(response);
+        });
+
+    })
 
     $(document).on("click", "img", function (event) {
+        // var isPlaying = false;
         console.log("This is outside the if statement " + $(this).attr("data-state"));
         // if ($(this).attr("data-state", "still")) {
         //     console.log("This is inside the if statement " + $(this).attr("data-state"));
@@ -130,8 +168,8 @@ $(document).ready(function () {
 
             $(this).attr("src", $(this).attr("img-url"));
             $(this).data('state') === 'still';
-        }  
-        
+        }
+
         else if ($(this).data('state') === 'still') {
             console.log("This is inside the else if statement " + $(this).attr("data-state"));
 
@@ -147,5 +185,5 @@ $(document).ready(function () {
         //     isPlaying = false;
         // }
     })
-        renderButtons();
-    });
+    renderButtons();
+});

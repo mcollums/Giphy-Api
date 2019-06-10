@@ -145,21 +145,27 @@ $(document).ready(function () {
             console.log(response);
             displayGifs(response);
         });
-
     })
 
     //When you click a gif, it will switch the image source
     $(document).on("click", "img", function (event) {
+        //variable of the data state property
         var state = ($(this).attr("data-state"));
+        //If the data-state = still
         if (state === "still") {
+            //Switch the image source to the data-play url
             $(this).attr("src", $(this).attr("data-play"));
+            //Make the data state property "play"
             $(this).attr("data-state","play");
-            console.log("This is inside the if statement " + state);
-          } else if (state === "play") {
+          } 
+          //If the data state = "play"
+          else if (state === "play") {
+            //Switch the image souce to the data-still url
             $(this).attr("src", $(this).attr("data-still"));
+            //Make the data state property "still"
             $(this).attr("data-state","play");        
-            console.log("This is inside the else if statement " + state);
           }
     })
+    //Adds all buttons to the page from our myTVShows array
     renderButtons();
 });

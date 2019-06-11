@@ -5,7 +5,7 @@ Search for your favorite TV show gifs! Click the buttons provided to explore sho
 ## Contributors
 * Michelle Collums
 
-##API's used
+## API's used
 * Giphy API
 * jQuery
 * Bootstrap

@@ -73,7 +73,7 @@ $(document).ready(function () {
     //Function that displays the new gifs to the page
     function displayGifs(response) {
         //for each gif...
-        response.data.forEach(function (gif, index) {
+        response.data.forEach(function (gif) {
             // create these variables using the still image and gif urls
             stillURL = gif.images.fixed_height_still.url;
             gifURL = gif.images.fixed_height.url;
@@ -139,17 +139,21 @@ $(document).ready(function () {
         $("#more-button").show();
     });
 
-    //This onclick event adds ten more gifs to the page 
+
+    //This onclick event adds 10 more gifs to the page 
     $(document).on("click", "#more-button", function (event) {
+        event.preventDefault();
+
+        console.log("I've been clicked!");
         //Removes the previous search results
-        $(".giphy-element").remove();
+        $("#gif-block").empty();
 
         //Michelle's API key
         var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
         //API URL that's being called
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphyKeyword + "&api_key=" + api + "&limit=" + newCount + "&rating=g";
 
-        //Adds 10 more to the count
+        // //Adds 10 more to the count
         var newCount = 20;
 
         // Creates AJAX call for the specific button being clicked

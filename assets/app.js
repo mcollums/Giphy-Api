@@ -19,18 +19,21 @@
 $(document).ready(function () {
     $("#more-button").hide();
 
-    var myTVShows = ["Community", "Broad City", "Big Little Lies", "Game of Thrones"];
+    // Global Variables
+    //=========================================================================================
+    var myTVShows = ["Community", "Broad City", "Last Week Tonight", "Game of Thrones", "The Late Show"];
     var gifURL = "";
     var stillURL = "";
     var giphyKeyword = "";
     var count = 10;
+    var rating = "";
+    var title = "";
 
 
-    // Function for displaying movie data
+    // Function for displaying the tv show buttons
     function renderButtons() {
 
-        // Deletes the movies prior to adding new movies
-        // (this is necessary otherwise you will have repeat buttons)
+        // Deletes the shows prior to adding new shows
         $("#buttons-all").empty();
 
         // Loops through the array 
@@ -50,31 +53,14 @@ $(document).ready(function () {
         }
     }
 
-    function displayGifs(response) {
-        //forEach 
-        response.data.forEach(function (gif, index) {
-            stillURL = gif.images.fixed_height_still.url;
-            gifURL = gif.images.fixed_height.url;
-
-            //makes new image tag for each gif
-            var image = $("<img>");
-            image.attr("src", stillURL);
-            image.attr("data-state", "still");
-            image.attr("data-still", stillURL);
-            image.attr("data-play", gifURL);
-            image.addClass("giphy-element");
-            // Append(image) to gif block
-            $("#gif-block").append(image);
-        })
-    }
-
+    //This function searches giphy for the keyword and calls the displayGifs function at the end
     function searchGiphy(keyword) {
         //Michelle's API key
         var api = "TuJVgn1PExKtbAesrbv0LoMl2YRf0kOm";
         //API URL that's being called
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=" + api + "&limit=10&rating=g";
 
-        // Creates AJAX call for the specific button being clicked
+        // Creates AJAX call for the specific button being clicked and then calls the displayGifs function with the response data
         $.ajax({
             url: queryURL,
             method: "GET"
@@ -84,21 +70,52 @@ $(document).ready(function () {
         });
     }
 
-    // This function handles events where the add movie button is clicked
-    $("#add-movie").on("click", function (event) {
+    //Function that displays the new gifs to the page
+    function displayGifs(response) {
+        //for each gif...
+        response.data.forEach(function (gif, index) {
+            // create these variables using the still image and gif urls
+            stillURL = gif.images.fixed_height_still.url;
+            gifURL = gif.images.fixed_height.url;
+            rating = gif.rating;
+            title = gif.title;
+
+            //makes new image tag for each gif and adds the following attr and class
+            var image = $("<img>");
+            image.attr("src", stillURL);
+            image.attr("data-state", "still");
+            image.attr("data-still", stillURL);
+            image.attr("data-play", gifURL);
+            image.addClass("giphy-element");
+
+            //New div and paragraph information
+            var infoHTML = $("<p class='gif-tag'> Rating: " + rating + "<br></br> Title: " + title+ "</p>");
+            var newDiv = $("<div>");
+
+            // Append(image) to gif block
+            $("#gif-block").append(newDiv).addClass("gif-div");
+            $(newDiv).append(image);
+            $(newDiv).append(infoHTML);
+        })
+    }
+
+
+
+    // This function handles events where the add show button is clicked
+    $("#add-show").on("click", function (event) {
         event.preventDefault();
 
         // This line of code will grab the input from the textbox
-        var keyword = $("#movie-input").val().trim();
+        var keyword = $("#show-input").val().trim();
 
         if (keyword.length > 0) {
-            // The movie from the textbox is then added to our array
+            // The show from the textbox is then added to our array
             myTVShows.push(keyword);
 
             //Clears the input field after submitting
-            var keyword = $("#movie-input").val("");
+            var keyword = $("#show-input").val("");
 
-            // Calling renderButtons which handles the processing of our movie array
+            // Calling renderButtons which populates the buttons from the myTVShows array
             renderButtons();
         }
     });
@@ -107,7 +124,7 @@ $(document).ready(function () {
     //On click event that will grab the value of the button and populate the page
     $(document).on("click", ".giphy-btn", function (event) {
         //Removes the previous search results
-        $(".giphy-element").remove();
+        $("#gif-block").empty();
 
         //Searches Giphy for the data name in the button
         searchGiphy($(this).attr("data-name"));
@@ -122,6 +139,7 @@ $(document).ready(function () {
         $("#more-button").show();
     });
 
+    //This onclick event adds ten more gifs to the page 
     $(document).on("click", "#more-button", function (event) {
         //Removes the previous search results
         $(".giphy-element").remove();
@@ -132,10 +150,7 @@ $(document).ready(function () {
         var queryURL = "https://api.giphy.com/v1/gifs/search?q=" + giphyKeyword + "&api_key=" + api + "&limit=" + newCount + "&rating=g";
 
         //Adds 10 more to the count
-        var newCount = count + 10;
-        console.log(newCount);
-        //Logs new number into the count
-        count = newCount;
+        var newCount = 20;
 
         // Creates AJAX call for the specific button being clicked
         $.ajax({
@@ -156,15 +171,15 @@ $(document).ready(function () {
             //Switch the image source to the data-play url
             $(this).attr("src", $(this).attr("data-play"));
             //Make the data state property "play"
-            $(this).attr("data-state","play");
-          } 
-          //If the data state = "play"
-          else if (state === "play") {
+            $(this).attr("data-state", "play");
+        }
+        //If the data state = "play"
+        else if (state === "play") {
             //Switch the image souce to the data-still url
             $(this).attr("src", $(this).attr("data-still"));
             //Make the data state property "still"
-            $(this).attr("data-state","play");        
-          }
+            $(this).attr("data-state", "play");
+        }
     })
     //Adds all buttons to the page from our myTVShows array
     renderButtons();

@@ -39,29 +39,39 @@
 }
 
 .btn:focus {
-    /* border: none !important; */
     box-shadow: none !important;
     background-color: #117585 !important;
     border-color:white;
-    /* outline: 0 none !important; */
 }
 /* End BUTTON ROW */
 
-/* Start GIF SECTION */
-.gif-title-row {
-    padding-right: 2.5rem;
+/* Start INPUT Section */
+#more-button {
+    margin-top: 10px;
 }
+/* End Input Section */
 
+
+/* Start GIF SECTION */
 .gif-row {
+    padding-right: 2.5rem;
     margin-top: 1rem;
     margin-left: 1.5rem;
 }
 
-#more-button{
-    margin: 20px 0px 70px 30px;
-}
-
 .giphy-element {
     margin: 5px 10px;
+}
+
+.gif-div {
+    width: 210px;
+    padding: 20px;
+    display : flex;
+    flex-flow: row wrap;
+}
+
+.gif-tag {
+    margin-left: 12px;
+    line-height: 1em;
 }
 /* End GIF SECTION */

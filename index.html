@@ -30,7 +30,6 @@
         </div>
     </div>
 
-    <!-- <div class="container container-fluid"> -->
     <!-- Row for all the Buttons -->
     <div class="row button-row container-custom">
         <div class="col-lg-12" id="buttons-all"></div>
@@ -38,35 +37,30 @@
 
     <!-- Row for the Input Field and the Gifs -->
     <div class="row gif-row">
-        <div class="col-lg-3">
-            <form id="movie-form">
-                <label for="movie-input">Add a TV Show, Yo!</label>
+        <!-- Column for the input form -->
+        <div class="col-lg-2">
+            <form id="show-form">
+                <label for="show-input">Add a TV Show, Yo!</label>
                 <br>
-                <input type="text" id="movie-input"><br>
+                <input type="text" id="show-input"><br>
                 <br>
-                <!-- Button triggers new movie to be added -->
-                <input class="btn btn-primary" id="add-movie" type="submit" value="Add Button">
+                <!-- Button triggers new show to be added -->
+                <input class="btn btn-primary" id="add-show" type="submit" value="Add Button">
+                <button class="btn btn-primary" id="more-button">Add Ten More!</button>
             </form>
         </div>
-
-        <div class="col-lg-9">
-            <div class="row gif-title-row">
+        <!-- Column for the gifs and "more" button -->
+        <div class="col-lg-10">
+            <div class="row gif-row">
                 <div class="col-lg-12">
                     <h2><span id="top-ten-span"></span></h2>
                 </div>
-
-                <div class="row" >
-                    <div class="col-lg-12" id="gif-block"></div>
-                    <div class="row">
-                        <div class="col-lg-12 text-center">
-                                <button class="btn btn-primary" id="more-button">Add Ten More!</button>
-                        </div>
-                    </div>
-                </div>
+                <!-- Subrow where the gifs will be displayed -->
+                <div class="col-lg-12" id="gif-block"></div>
             </div>
         </div>
-        <!-- </div> -->
 
+        <!-- Javascript Source -->
         <script src="assets/app.js"></script>
 </body>
 
